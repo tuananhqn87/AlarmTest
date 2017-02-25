@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#607D8B</color>
+    <color name="colorPrimaryDark">#607D8B</color>
+    <color name="colorAccent">#90A4AE</color>
+    <color name="colorAlarmViewBackground">#FFFFFF</color>
+    <color name="colorAlarmViewText">#546E7A</color>
+    <color name="colorAlarmActivity">#CFD8DC</color>
+</resources>

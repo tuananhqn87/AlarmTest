@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/alarm_activity"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAlarmActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/list_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/set_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:textAlignment="center"
+        android:text="@string/add_alarm"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp"
+        android:layout_alignParentBottom="true"
+        android:textColor="#CFD8DC"
+        android:textSize="20sp"
+        android:background="#FFF"
+        android:textAllCaps="true"
+
+        />
+
+</RelativeLayout>
