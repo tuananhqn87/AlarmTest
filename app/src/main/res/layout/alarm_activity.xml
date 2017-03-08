@@ -23,15 +23,16 @@
     <TextView
         android:id="@+id/set_alarm"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="40dp"
         android:textAlignment="center"
         android:text="@string/add_alarm"
+        android:layout_centerHorizontal="true"
         android:gravity="center_vertical"
         android:layout_marginBottom="8dp"
         android:layout_alignParentBottom="true"
-        android:textColor="#CFD8DC"
+        android:textColor="@color/colorAlarmViewText"
         android:textSize="20sp"
-        android:background="#FFF"
+        android:background="#ECEFF1"
         android:textAllCaps="true"
 
         />

@@ -26,10 +26,14 @@ public class AlarmSettingActivity extends AppCompatActivity {
     private TextView alarmView;
     private AlarmManager alarmManager;
     private Calendar calendar = Calendar.getInstance();
-    Intent broadcastIntent;
+    private Intent broadcastIntent;
     private PendingIntent pendingIntent;
 
 
+    /**
+     * Method to create activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +56,9 @@ public class AlarmSettingActivity extends AppCompatActivity {
     }
 
 
-    // Method to add view control
+    /**
+     * Method to add view control
+     */
     private void addControl() {
         // Add timepicker
         timePicker = (TimePicker) findViewById(R.id.timePicker);
@@ -67,6 +73,9 @@ public class AlarmSettingActivity extends AppCompatActivity {
         alarmView = (TextView) findViewById(R.id.alarm_view);
     }
 
+    /**
+     * Set on click listener to turn on the alarm
+     */
     private void setAlarmListener() {
         alarmOn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +86,9 @@ public class AlarmSettingActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Set on click listener to turn off the alarm
+     */
     private void cancelAlarmListener() {
         alarmOff.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.M)
@@ -84,50 +96,45 @@ public class AlarmSettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Turn off alarm
                 setAlarmOff();
-
-
             }
         });
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
+    /**
+     * Turn on the alarm
+     */
     private void setAlarmOn() {
-        //Set calendar hour and minute by timepicker hour and minute
-        calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-        calendar.set(Calendar.MINUTE, timePicker.getMinute());
 
         //Put extra information to intent
         broadcastIntent.putExtra(MESSAGE,"start");
 
         //the pending intent to delay the intent until time's up
-        pendingIntent = PendingIntent.getBroadcast(this,0,broadcastIntent
-                ,PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getBroadcast(this,0,broadcastIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         //Set alarm manager
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        //if alarm time in millisecond is less than current system time in millisecond,
-        // alarm should be set to next day
-        long calendarTime = calendar.getTimeInMillis();
-        if(calendarTime < System.currentTimeMillis()) {
-            calendarTime = calendarTime + (24*60*60*1000);
-        }
-        alarmManager.set(AlarmManager.RTC_WAKEUP,calendarTime,pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,getAlarmTimeInMillis(),pendingIntent);
 
         //Format the date
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss yyyy-MM-dd");
 
+        //Text to show the next alarm time
         String text = "Alarm on";
-        text = text + "\n" + format.format(calendarTime);
+        text = text + "\n" + format.format(getAlarmTimeInMillis());
 
         //Set text view to alarm time
         alarmView.setText(text);
 
     }
 
+    /**
+     * Turn off the alarm
+     */
     private void setAlarmOff() {
         //put intent extra to send stop message to alarm receiver
         broadcastIntent.putExtra(MESSAGE,"stop");
+
         //send broadcast
         sendBroadcast(broadcastIntent);
 
@@ -138,6 +145,39 @@ public class AlarmSettingActivity extends AppCompatActivity {
 
         //Set text view to "Alarm Off"
         alarmView.setText(R.string.alarm_off);
+    }
+
+    /**
+     * Get time in millisecond
+     * @return time in millisecond
+     */
+    public long getAlarmTimeInMillis() {
+
+        //if alarm time in millisecond is less than current system time in millisecond,
+        // alarm should be set to next day
+        long calendarTime = getAlarmCalendar().getTimeInMillis();
+
+        // Compare calendar time in millis with system current time in millis,
+        // if system time is greater than calendar time,
+        // the alarm time will be added 1 more day
+        if(calendarTime < System.currentTimeMillis()) {
+            calendarTime = calendarTime + (24*60*60*1000);
+        }
+
+        return calendarTime;
+    }
+
+    /**
+     * Get alarm calendar that has been set by time picker
+     * @return calendar of alarm
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    public Calendar getAlarmCalendar() {
+        //Set calendar hour and minute by timepicker hour and minute
+        calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
+        calendar.set(Calendar.MINUTE, timePicker.getMinute());
+
+        return calendar;
     }
 
 }

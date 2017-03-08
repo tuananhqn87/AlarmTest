@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by anhtran on 2/25/17.
@@ -17,13 +20,13 @@ public class AlarmMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarm_activity);
-        getView();
-
+        addControl();
+        setAlarmListener();
+        showAlarmList();
     }
 
-    private void getView() {
+    private void addControl() {
         setAlarm = (TextView) findViewById(R.id.set_alarm);
-        setAlarmListener();
     }
 
     private void setAlarmListener() {
@@ -35,5 +38,17 @@ public class AlarmMainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void showAlarmList() {
+        ArrayList<Alarm> alarms = new ArrayList<>();
+        alarms.add(new Alarm(14,3,20));
+        alarms.add(new Alarm(5,15,30));
+
+        AlarmAdapter alarmAdapter = new AlarmAdapter(getApplicationContext(),alarms);
+        ListView alarmList = (ListView)findViewById(R.id.list_alarm);
+
+        alarmList.setAdapter(alarmAdapter);
+    }
+
 
 }
