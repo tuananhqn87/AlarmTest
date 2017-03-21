@@ -1,6 +1,19 @@
 <resources>
-    <string name="app_name">Alarm Test</string>
-    <string name="alarm_off">Alarm Off</string>
-    <string name="alarm_on">Alarm On</string>
+    <string name="app_name">Wake Up</string>
     <string name="add_alarm">Add Alarm</string>
+    <string name="delete_all_alarms">Delete All Alarms</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="text_view_alarm_on">Alarm is set by</string>
+    <string name="text_view_alarm_off">Alarm Off</string>
+    <string name="alarm_list_activity_state_on">On</string>
+    <string name="alarm_list_activity_state_off">Off</string>
+
+    <string name="title_activity_notification">Wake Up Notification</string>
+    <string name="dismiss">DISMISS</string>
+    <string name="notification_default_name">WAKE UP</string>
+    <string name="discard_your_changes">Discard your changes?</string>
+    <string name="discard">Discard</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_this_alarm">Delete this alarm?</string>
 </resources>
