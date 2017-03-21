@@ -75,7 +75,9 @@ public class Alarm {
 
         //Set alarm manager
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, getAlarmTimeInMillis(), mServicePendingIntent);
+
+        // Set exact time for alarm manager
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, getAlarmTimeInMillis(), mServicePendingIntent);
     }
 
     /**
