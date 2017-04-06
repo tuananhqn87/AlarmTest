@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Wake Up</string>
-    <string name="add_alarm">Add Alarm</string>
-    <string name="delete_all_alarms">Delete All Alarms</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
     <string name="text_view_alarm_on">Alarm is set by</string>

@@ -15,7 +15,7 @@ import static org.anhtran.wakeup.AlarmEditorActivity.MESSAGE;
  * Created by anhtran on 2/26/17.
  */
 
-public class Alarm {
+class Alarm {
     private static final String LOG_TAG = Alarm.class.getSimpleName();
 
     private int hour;
@@ -30,26 +30,22 @@ public class Alarm {
     /**
      * This class manages alarm information
      */
-    public Alarm() {
+    Alarm() {
     }
 
-    public void enable() {
-        Log.e(LOG_TAG, "enable() methods called");
+    void enable() {
         isEnabled = true;
     }
 
-    public void disable() {
-        Log.e(LOG_TAG, "disable() methods called");
+    void disable() {
         isEnabled = false;
     }
 
     public boolean isEnabled() {
-        Log.e(LOG_TAG, "isEnabled() methods called");
         return isEnabled;
     }
 
-    public void setTime(int hour, int minute) {
-        Log.e(LOG_TAG, "setTime() methods called");
+    void setTime(int hour, int minute) {
         this.hour = hour;
         this.minute = minute;
     }
@@ -57,8 +53,7 @@ public class Alarm {
     /**
      * Turn on the alarm
      */
-    public void setAlarmOn(Context context, Uri currentUri) {
-        Log.e(LOG_TAG, "setAlarmOn() methods called");
+    void setAlarmOn(Context context, Uri currentUri) {
 
         enable();
 
@@ -83,8 +78,7 @@ public class Alarm {
     /**
      * Turn off the alarm
      */
-    public void setAlarmOff(Context context) {
-        Log.e(LOG_TAG, "setAlarmOff() methods called");
+    void setAlarmOff(Context context) {
 
         // Alarm is disabled
         disable();
@@ -108,7 +102,7 @@ public class Alarm {
      * @return time in millisecond
      */
 
-    public long getAlarmTimeInMillis() {
+    long getAlarmTimeInMillis() {
 
         //Set calendar to current time
         calendar.setTimeInMillis(System.currentTimeMillis());

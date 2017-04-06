@@ -1,7 +1,10 @@
 package org.anhtran.wakeup;
 
+import android.app.AlarmManager;
 import android.app.LoaderManager;
+import android.app.PendingIntent;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +15,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -64,40 +68,6 @@ public class AlarmListActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_alarm_list, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.delete_all_alarms:
-                DialogInterface.OnClickListener deleteAllClickListener =
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int rowsEffected = getContentResolver()
-                                        .delete(AlarmEntry.CONTENT_URI, null, null);
-                                if (rowsEffected == 0) {
-                                    Toast.makeText(AlarmListActivity.this,
-                                            "Delete all alarms failed", Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(AlarmListActivity.this,
-                                            "Delete successful", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        };
-                showDeleteConfirmationDialog(deleteAllClickListener);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -87,7 +87,6 @@ public class AlarmEditorActivity extends AppCompatActivity
      * Method to add view control
      */
     private void addControl() {
-        Log.e(LOG_TAG, "addControl() methods called");
         // Add alarm name editor
         mNameEditText = (EditText) findViewById(R.id.editor_name_edit_text);
         mNameEditText.setOnTouchListener(mTouchListener);
@@ -116,7 +115,6 @@ public class AlarmEditorActivity extends AppCompatActivity
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Log.e(LOG_TAG, "onCreateLoader() methods called");
 
         String[] projection = {
                 AlarmEntry._ID,
@@ -129,7 +127,6 @@ public class AlarmEditorActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        Log.e(LOG_TAG, "onLoadFinished() methods called");
 
         final boolean ON = true;
         final boolean OFF = false;
@@ -165,7 +162,6 @@ public class AlarmEditorActivity extends AppCompatActivity
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        Log.e(LOG_TAG, "onLoaderReset() methods called");
         mNameEditText.setText("");
         calendar.setTimeInMillis(System.currentTimeMillis());
     }
@@ -174,7 +170,6 @@ public class AlarmEditorActivity extends AppCompatActivity
     // Save alarm to database
     @TargetApi(Build.VERSION_CODES.M)
     private void saveAlarm() {
-        Log.e(LOG_TAG, "saveAlarm() methods called");
 
         // Set time to alarm
         alarm.setTime(mTimePicker.getHour(), mTimePicker.getMinute());
@@ -199,8 +194,8 @@ public class AlarmEditorActivity extends AppCompatActivity
         values.put(AlarmEntry.COLUMN_ALARM_NAME, name);
         values.put(AlarmEntry.COLUMN_ALARM_STATE, state);
 
+        // If the is no current URI then insert new alarm to database
         if (mCurrentAlarmUri == null) {
-            Log.e(LOG_TAG, "saveAlarm() methods - editor add alarm");
 
             mCurrentAlarmUri = getContentResolver().insert(AlarmEntry.CONTENT_URI, values);
 
@@ -213,8 +208,9 @@ public class AlarmEditorActivity extends AppCompatActivity
             if (alarm.isEnabled()) {
                 alarm.setAlarmOn(this, mCurrentAlarmUri);
             }
-        } else {
-            Log.e(LOG_TAG, "saveAlarm() methods - editor edit alarm");
+        }
+        // If there is a current URI then update database record at this current URI
+        else {
 
             int rowsAffected = getContentResolver().update(mCurrentAlarmUri, values, null, null);
             // Show a toast message depending on whether or not the update was successful.
@@ -268,10 +264,12 @@ public class AlarmEditorActivity extends AppCompatActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
+        // If this activity is opened to add new alarm then hide the delete item from option menu
         if (mCurrentAlarmUri == null) {
             MenuItem menuItem = menu.findItem(R.id.action_delete);
             menuItem.setVisible(false);
         }
+
         return true;
     }
 

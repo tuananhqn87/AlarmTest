@@ -30,13 +30,11 @@ public class AlarmCursorAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        Log.e(LOG_TAG, "newView() methods called");
         return LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        Log.e(LOG_TAG, "bindView() methods called");
 
         long datetime = cursor.getLong(cursor.getColumnIndexOrThrow(AlarmEntry.COLUMN_ALARM_DATETIME));
 

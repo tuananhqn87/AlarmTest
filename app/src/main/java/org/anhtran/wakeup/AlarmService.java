@@ -29,7 +29,6 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e(LOG_TAG, "onStartCommand() methods called");
 
         //Get intent extra string
         String intentMsg = intent.getExtras().getString(AlarmEditorActivity.MESSAGE);
@@ -66,10 +65,8 @@ public class AlarmService extends Service {
     //This method will start the alarm and add notification service
     private void startAlarm() {
 
-        Log.e(LOG_TAG, "startAlarm() methods called");
-
         //Create media player ringtone
-        ringtone = MediaPlayer.create(getApplicationContext(), R.raw.rythmoftherain);
+        ringtone = MediaPlayer.create(getApplicationContext(), R.raw.nature_alarm);
 
         //Start ringtone
         ringtone.start();
@@ -77,28 +74,41 @@ public class AlarmService extends Service {
         //The ringtone is playing
         isPlaying = true;
 
+        // Initialize notification manager by getting system notification service
         NotificationManager notifyManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
+        // Define intent to open notification activity when click on notification
         Intent notifyIntent = new Intent(getApplicationContext(), NotificationActivity.class);
+
+        // Set data to intent to help notification activity retrieve alarm info
         if (mCurrentAlarmUri != null) {
             notifyIntent.setData(mCurrentAlarmUri);
-        } else {
-            Log.e(LOG_TAG, "Uri is: " + mCurrentAlarmUri);
         }
+        // Set action by an ID string to help the intent is unique
         notifyIntent.setAction(Long.toString(System.currentTimeMillis()));
+
+        // Declare pending intent that is set to notification content intent
         PendingIntent notifyPendingIntent =
                 PendingIntent.getActivity(getApplicationContext(), 0, notifyIntent, 0);
 
-
+        // Build the notification
         Notification notification = new NotificationCompat.Builder(this)
+                // Set the title of notification
                 .setContentTitle("Wake Up Alarm")
+                // Set the content of notification
                 .setContentText("Click to open")
+                // Set the intent of notification
                 .setContentIntent(notifyPendingIntent)
+                // Set default notification behavior
                 .setDefaults(Notification.DEFAULT_ALL)
+                // Set priority to high to make notification show on the head of screen
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                // Auto disappear when notification is clicked on
                 .setAutoCancel(true)
+                // Set the icon for notification
                 .setSmallIcon(R.drawable.ic_alarm_add)
+                // Build notification
                 .build();
 
         notifyManager.notify(0, notification);

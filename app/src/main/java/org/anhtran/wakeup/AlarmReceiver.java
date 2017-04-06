@@ -17,7 +17,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e(LOG_TAG, "onReceive() methods called");
         //This intent to send to AlarmService
         intentService = new Intent(context, AlarmService.class);
 
